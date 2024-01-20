@@ -27,3 +27,27 @@ ul>li>a{
 ul>li>a.active{
   color: var(--black1)!important;
 }
+
+/*--- CALENDAR ---*/
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+table {
+  border: 1px solid black;
+  margin: auto;
+  background-color: white;
+}
+
+table *{
+  text-align: center;
+}
+
+table td, table th {
+  border: 1px solid black;
+  height: 70px;
+  width: 200px;
+}

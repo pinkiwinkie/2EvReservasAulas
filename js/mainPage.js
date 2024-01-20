@@ -17,3 +17,6 @@ function hiddenElements() {
     elementsAdmin[i].classList.add('hidden');
   }
 }
+
+/* ---CALENDAR--- */
+
