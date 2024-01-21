@@ -36,7 +36,7 @@ class Calendar
   function insertCalendar($link)
   {
     try {
-      $query = "INSERT INTO calendario VALUES(:horario_name, :start_time, :end_time, :number_of_periods, :time_per_period, :duration_per_hour)";
+      $query = "INSERT INTO calendario VALUES(:horario_name, :start_time, :end_time, :number_of_periods, :hour_of_periods, :time_per_period, :duration_per_hour)";
       $result = $link->prepare($query);
 
 
