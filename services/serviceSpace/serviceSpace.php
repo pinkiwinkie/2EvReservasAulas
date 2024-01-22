@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  $space = new Space($_POST['space_id'], $_POST['space_name'], $_POST['max_advance_bookings_days']);
+  $space = new Space($_POST['space_id'], $_POST['space_name']);
 
   if($space->search($base->link)){
     echo json_encode('noInsertado');
