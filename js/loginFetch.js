@@ -19,7 +19,7 @@ buttonLogin.addEventListener("click", function (e) {
   if (email === "" || pwd === "") {
     alert("Introduce valores");
   } else {
-    fetch(`http://localhost/reservasAulas/services/serviceUser/userService.php?email=${email}&pwd=${pwd}`)
+    fetch(`http://localhost/2EvReservasAulas/services/serviceUser/userService.php?email=${email}&pwd=${pwd}`)
       .then(res => res.json())
       .then(data => {
         console.log(data);

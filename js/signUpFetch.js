@@ -23,7 +23,7 @@ buttonRegister.addEventListener("click", function (e) {
   if (name === "" || username === "" || email === "" || pwd === "") {
     alert("Introduce valores");
   } else {
-    fetch("http://localhost/proyectoReservasAulas/services/serviceUser/userService.php", {
+    fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php", {
       method: "POST",
       body: dates,
     })
