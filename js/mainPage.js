@@ -1,4 +1,5 @@
 let usernameTitle= document.getElementsByClassName("usernameTitle");
+let buttonLogOut = document.getElementById("buttonLogOut");
 
 let user = JSON.parse(localStorage.getItem('user'));
 if (user.user_type !== "admin") {
@@ -18,5 +19,7 @@ function hiddenElements() {
   }
 }
 
-/* ---CALENDAR--- */
-
+buttonLogOut.addEventListener("click", function () {
+  localStorage.clear();
+  window.location.href = "../index.html";
+})
