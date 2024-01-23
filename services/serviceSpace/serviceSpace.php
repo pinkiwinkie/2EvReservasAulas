@@ -4,7 +4,7 @@ include "../../config/autoload.php";
 $base = new Bd();
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-  $dato = User::getAll($base->link);
+  $dato = Space::getAll($base->link);
     header("HTTP/1.1 200 OK");
     echo json_encode($dato);
     exit();
