@@ -87,12 +87,25 @@ function updateListUsers() {
     .catch((error) => console.error("Error al obtener la lista de usuarios:", error));
 }
 
-function deleteUser($email){
+function deleteUser(email){
 
-  alert($email);
-  fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php")
-  .then((response) => response.json())
-  .then((data) => {
-
-  }) .catch((error) => console.error("Error al eliminar: ", error));
+  alert(email);
+  if (confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
+    fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php", {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Usuario eliminado correctamente");
+        } else {
+          alert("Usuario no encontrado o no se pudo eliminar");
+        }
+      })
+      .catch((error) => console.error("Error al eliminar: ", error));
+      location.reload()
+  }
 }
