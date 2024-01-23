@@ -39,3 +39,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
   }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+  if (!empty($data->email)) {
+    $user = new User($data->email, "", "", "", "");
+
+    if ($user->deleteUser($base->link)) {
+      http_response_code(200);
+      echo json_encode("Usuario eliminado correctamente");
+      exit();
+    } else {
+      http_response_code(404);
+      echo json_encode("Usuario no encontrado o no se pudo eliminar");
+      exit();
+    }
+  } else {
+
+    http_response_code(400);
+    echo json_encode("Falta el correo del usuario para realizar la eliminación");
+    exit();
+  }
+}

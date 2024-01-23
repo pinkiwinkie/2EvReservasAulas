@@ -69,4 +69,19 @@ class User
       die();
     }
   }
+
+  function deleteUser($link){
+    try{
+      $query = "DELETE FROM users WHERE email = :email";
+      $result = $link->prepare($query);
+
+      $userEmail = $this->email;
+      $result->bindParam(':email', $userEmail);
+      $result->execute();
+      return $result;
+    }catch (PDOException $e) {
+      echo "¡Error!: " . $e->getMessage() . "<br/>";
+      die();
+    }
+  }
 }

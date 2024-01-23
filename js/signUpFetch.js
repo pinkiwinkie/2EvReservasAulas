@@ -1,6 +1,7 @@
 var buttonRegister = document.getElementById('registerButton');
+var divUsers = document.getElementById("users");
 
-buttonRegister.addEventListener("click", function (e) { 
+buttonRegister.addEventListener("click", function (e) {
   e.preventDefault();
 
   let nameInput = document.getElementById('name');
@@ -18,7 +19,7 @@ buttonRegister.addEventListener("click", function (e) {
   dates.append('username', username);
   dates.append('email', email);
   dates.append('pwd', pwd);
-  dates.append('user_type',"noAdmin");
+  dates.append('user_type', "noAdmin");
 
   if (name === "" || username === "" || email === "" || pwd === "") {
     alert("Introduce valores");
@@ -28,7 +29,7 @@ buttonRegister.addEventListener("click", function (e) {
       body: dates,
     })
       .then((res) => res.json())
-      .then((data) => { 
+      .then((data) => {
         console.log(data);
         if (data == "noInsertado") {
           alert("El usuario ya existe");
@@ -42,3 +43,49 @@ buttonRegister.addEventListener("click", function (e) {
       });
   }
 })
+updateListUsers();
+
+function updateListUsers() {
+  fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php")
+    .then((response) => response.json())
+    .then((data) => {
+
+      if (data.length > 0) {
+        const userListHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.map((user) => {
+                return `
+                  <tr>
+                    <td>${user.username}</td>
+                    <td>${user.names}</td>
+                    <td>
+                      <button class="btn btn-danger" onclick="deleteUser('${user.email}')">
+                        <i class="bi bi-trash"></i> Delete
+                      </button>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        `;
+
+        divUsers.innerHTML = userListHTML;
+      } else {
+        divUsers.innerHTML = "<p>No hay usuarios registrados</p>";
+      }
+    })
+    .catch((error) => console.error("Error al obtener la lista de usuarios:", error));
+}
+
+function deleteUser($email){
+  alert($email);
+}
