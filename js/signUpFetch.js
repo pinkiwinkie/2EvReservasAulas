@@ -39,6 +39,7 @@ buttonRegister.addEventListener("click", function (e) {
           usernameInput.value = "";
           emailInput.value = "";
           pwdInput.value = "";
+          updateListUsers();
         }
       });
   }
@@ -87,5 +88,11 @@ function updateListUsers() {
 }
 
 function deleteUser($email){
+
   alert($email);
+  fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php")
+  .then((response) => response.json())
+  .then((data) => {
+
+  }) .catch((error) => console.error("Error al eliminar: ", error));
 }
