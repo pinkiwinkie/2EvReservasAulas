@@ -2,12 +2,10 @@
 
 class Space
 {
-  private $space_id;
   private $space_name;
 
-  function __construct($space_id, $space_name)
+  function __construct($space_name)
   {
-    $this->space_id = $space_id;
     $this->space_name = $space_name;
   }
 
@@ -27,29 +25,40 @@ class Space
   function insertSpaces($link)
   {
     try {
-      $query = "INSERT INTO spaces VALUES(:space_id, :space_name)";
+      // Verificar si ya existe un espacio con el mismo nombre
+      if ($this->spaceExists($link)) {
+        return false; // Ya existe, no se realiza la inserción
+      }
+
+      $query = "INSERT INTO spaces(space_name) VALUES(:space_name)";
       $result = $link->prepare($query);
 
-      $space_id = $this->space_id;
       $space_name = $this->space_name;
 
-      $result->bindParam(':space_id', $space_id);
       $result->bindParam(':space_name', $space_name);
 
       $result->execute();
-      return $result;
+      
+      return $result->rowCount() > 0; // Retorna true si se realizó la inserción, false si no
     } catch (PDOException $e) {
       echo "¡Error!: " . $e->getMessage() . "<br/>";
       die();
     }
   }
 
-  function search($link)
+  function spaceExists($link)
   {
     try {
-      $query = "SELECT * FROM spaces WHERE space_id ='$this->space_id'";
+      $query = "SELECT * FROM spaces WHERE space_name = :space_name";
       $result = $link->prepare($query);
+      
+      $space_name = $this->space_name;
+
+      $result->bindParam(':space_name', $space_name);
+      
       $result->execute();
+
+      return $result->rowCount() > 0; 
     } catch (PDOException $e) {
       echo json_encode(['error' => $e->getMessage()]);
       die();

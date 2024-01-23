@@ -34,55 +34,33 @@ addSpaceButton.addEventListener("click", function () {
 });
 
 registerSpaceButton.addEventListener("click", function () {
-
-  let firstInput = document.getElementById("weeksOfBook");
   let inputs = document.querySelectorAll("#containerInput input");
-  console.log(inputs);
-
-  let data = [];
+  let data = new FormData();
   let isEmpty = false;
-
-  if(isNaN(firstInput.value)){
-    alert("inserte un número válido");
-  }
-
-  data.push({
-    index: firstInput.getAttribute("data-index"),
-    value: firstInput.value,
-  });
 
   inputs.forEach(function (input) {
     let value = input.value;
-    let index = input.getAttribute("data-index");
 
     if (value == "") {
       isEmpty = true;
       return;
     }
 
-    data.push({
-      index: index,
-      value: value,
-    });
+    data.append("space_name", value);
   });
 
   if (isEmpty) {
     alert("Inserte valores");
     return;
   }
-  console.log(data);
-  
-  fetch("http://localhost/2EvReservasAulas/services/serviceSpace/serviceSpace.php", {
+  fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php",
+  {
     method: "POST",
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((data) => { 
-      console.log(data);
-      if (data == "noInsertado") {
-        alert("El espacio ya existe");
-      } else {
-        alert("Espacio registrado correctamente");
-      }
-    });
+    body: data,
+  }
+  )
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+  });
 });

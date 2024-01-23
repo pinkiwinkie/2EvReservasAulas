@@ -10,15 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-  $space = new Space($_POST['space_id'], $_POST['space_name']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $space = new Space($_POST['space_name']);
 
-  if($space->search($base->link)){
-    echo json_encode('noInsertado');
+  // Intentar realizar la inserción
+  $inserted = $space->insertSpaces($base->link);
+
+  if ($inserted) {
+    // Inserción exitosa
+    header("HTTP/1.1 200 OK");
+    echo json_encode(['status' => 'insertado', 'message' => 'Inserción exitosa.']);
     exit();
-  }else{
-    $space->insertSpaces($base->link);
-    echo json_encode('insertado');
+  } else {
+    // Ya existe o fallo en la inserción
+    header("HTTP/1.1 400 Bad Request");
+    echo json_encode(['status' => 'noInsertado', 'message' => 'El espacio ya existe o fallo en la inserción.']);
     exit();
   }
 }
