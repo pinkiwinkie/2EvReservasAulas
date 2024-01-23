@@ -41,8 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-  if (!empty($data->email)) {
-    $user = new User($data->email, "", "", "", "");
+  $json_date = file_get_contents('php://input');
+
+  $data = json_decode($json_date,true);
+  if ($data !== null) {
+    $user = new User($data['email'], "", "", "", "");
 
     if ($user->deleteUser($base->link)) {
       http_response_code(200);
