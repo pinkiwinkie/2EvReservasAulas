@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cli->insertUser($base->link);
     echo json_encode('insertado');
     exit();
-  }
+  } 
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
