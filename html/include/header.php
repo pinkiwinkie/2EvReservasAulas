@@ -34,25 +34,16 @@
         <div class="offcanvas-body bg-info">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item mx-2">
-              <a class="nav-link active" aria-current="page" href="./mainPage.html">Home</a>
+              <a class="nav-link active" aria-current="page" href="./mainPage.php">Home</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./generateHolidays.html">Introducir festivos</a>
+              <a class="nav-link" href="./viewBookings.php">Gestionar reservas</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./viewBookings.html">Gestionar reservas</a>
+              <a class="nav-link" href="./generatecalendar.php">Generar calendario</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./generatecalendar.html">Generar calendario</a>
-            </li>
-            <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./generateSpaces.html">Crear espacios</a>
-            </li>
-            <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./registro.html">Añadir Usuario</a>
-            </li>
-            <li class="nav-item mx-2">
-              <a class="nav-link" href="./updatePerfil.html">Configurar perfil</a>
+              <a class="nav-link" href="./registro.php">Añadir Usuario</a>
             </li>
             <li class="nav-item mx-2">
               <a class="nav-link" id="buttonLogOut" href="#">Cerrar sesión</a>
