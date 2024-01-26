@@ -4,11 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página principal</title>
+  <title></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="../styles/mainPage.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../styles/dashboardAdmin.css">
 </head>
 
 <body class="vh-100 overflow-hidden">
@@ -34,22 +35,16 @@
         <div class="offcanvas-body bg-info">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item mx-2">
-              <a class="nav-link active" aria-current="page" href="./mainPage.html">Home</a>
+              <a class="nav-link" aria-current="page" href="./mainPage.html">Home</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./generateHolidays.html">Introducir festivos</a>
+              <a class="nav-link" href="./dashboardAdmin.php">Registros</a>
             </li>
             <li class="nav-item mx-2 only-admin">
               <a class="nav-link" href="./viewBookings.html">Gestionar reservas</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./generatecalendar.html">Generar calendario</a>
-            </li>
-            <li class="nav-item mx-2 only-admin">
               <a class="nav-link" href="./generateSpaces.html">Crear espacios</a>
-            </li>
-            <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./registro.html">Añadir Usuario</a>
             </li>
             <li class="nav-item mx-2">
               <a class="nav-link" href="./updatePerfil.html">Configurar perfil</a>

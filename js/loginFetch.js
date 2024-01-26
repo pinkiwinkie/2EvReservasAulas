@@ -27,7 +27,7 @@ buttonLogin.addEventListener("click", function (e) {
           alert("Credenciales incorrectas");
         } else {
           localStorage.setItem("user", JSON.stringify(data));
-          window.location.href = "./html/mainPage.html";
+          window.location.href = "./html/mainPage.php";
         }
       })
   }

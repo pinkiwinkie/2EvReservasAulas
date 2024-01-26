@@ -1,4 +1,7 @@
-  <!-- CALENDAR -->
+<?php
+include "include/header.php"
+?>
+<!-- CALENDAR -->
   <main>
     <div class="calendarHeader">
       <div class="btn prev-btn">
