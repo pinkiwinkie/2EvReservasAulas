@@ -1,6 +1,5 @@
 <?php
-<<<<<<< HEAD
-include "include/header.php"
+include "./include/header.php"
 ?>
 <!-- CALENDAR -->
   <main>
@@ -11,19 +10,6 @@ include "include/header.php"
       <div class="btn next-btn">
         Próxima semana<i class="bi bi-chevron-right"></i>
       </div>
-=======
-include "./include/header.php";
-?>
-<!-- CALENDAR -->
-<main>
-  <div class="calendarHeader">
-    <div class="btn prev-btn">
-      <i class="bi bi-chevron-left"></i>Semana anterior
-    </div>
-    <div class="btn next-btn">
-      Próxima semana<i class="bi bi-chevron-right"></i>
-    </div>
->>>>>>> ae1fce78079cd5d50f7a8be3bd43fcc4bbd42ce1
   </div>
   <table>
     <tr class="header-row">
