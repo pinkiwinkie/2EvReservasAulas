@@ -88,14 +88,13 @@ function updateListUsers() {
 }
 
 function deleteUser(email){
-
   alert(email);
   if (confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
-    fetch(`http://localhost/2EvReservasAulas/services/serviceUser/userService.php?email=${email}`, {
+    fetch(`http://localhost/2EvReservasAulas/services/serviceUser/userService.php`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },body: JSON.stringify({ email: email })
     })
       .then((response) => {
         if (response.ok) {

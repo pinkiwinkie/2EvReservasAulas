@@ -34,11 +34,7 @@ CREATE TABLE IF NOT EXISTS holidays (
 );
 
 CREATE TABLE IF NOT EXISTS calendario (
-  horario_name VARCHAR(255) PRIMARY KEY,
+  id INT AUTO_INCREMENT,
   start_time TIME NOT NULL,
-  end_time TIME NOT NULL,
-  number_of_periods INT NOT NULL,
-  hour_of_periods VARCHAR(255) NOT NULL,
-  time_per_period INT NOT NULL,
-  duration_per_hour INT NOT NULL
+  end_time TIME NOT NULL
 );
