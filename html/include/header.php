@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../styles/dashboardAdmin.css">
 </head>
 
-<body class="vh-100 overflow-hidden">
+<body class="vh-100">
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg bg-info">
     <div class="container-fluid">
@@ -38,10 +38,10 @@
               <a class="nav-link active" aria-current="page" href="./mainPage.php">Home</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./viewBookings.php">Gestionar reservas</a>
+              <a class="nav-link" href="./dashboardAdmin.php">Dashboard</a>
             </li>
             <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./generatecalendar.php">Generar calendario</a>
+              <a class="nav-link" href="./viewBookings.php">Gestionar reservas</a>
             </li>
             <li class="nav-item mx-2">
               <a class="nav-link" id="buttonLogOut" href="#">Cerrar sesión</a>

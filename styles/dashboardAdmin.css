@@ -2,3 +2,8 @@
   display: flex;
   flex-direction: column;
 }
+
+#users{
+  max-height: 400px;
+  overflow-y: auto;
+}
