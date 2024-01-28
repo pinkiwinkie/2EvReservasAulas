@@ -11,8 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $calendar = new Calendar($_POST['start_time'], $_POST['end_time']);
-  $calendar->insertCalendar($base->link);
+  $postData = json_decode(file_get_contents("php://input"), true);
+
+  foreach ($postData as $item) {
+    $calendar = new Calendar($item['start_time'], $item['end_time']);
+    $calendar->insertCalendar($base->link);
+  }
+
   echo json_encode('insertado');
   exit();
 }
