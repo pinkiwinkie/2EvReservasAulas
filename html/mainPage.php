@@ -8,6 +8,7 @@ include "./include/header.php"
       <i class="bi bi-chevron-left"></i>Semana anterior
     </div>
     <div class="monthCurrent"></div>
+    <button>Reservar</button>
     <div class="btn next-btn" onclick="loadNextWeek()">
       Próxima semana<i class="bi bi-chevron-right"></i>
     </div>

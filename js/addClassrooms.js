@@ -28,7 +28,7 @@ bGenerateClass.addEventListener("click", function () {
     return res.json();
   })
   .then((data) => {
-    console.log(data); // Imprime la respuesta del servidor en la consola
+    console.log(data);
     if (data === "insertado") {
       alert("Aulas registradas correctamente");
       classroom.value = "";

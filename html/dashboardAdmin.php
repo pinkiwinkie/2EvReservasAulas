@@ -197,7 +197,7 @@ include "./include/header.php"
 <script src="../js/mainPage.js"></script>
 <script src="../js/signUpFetch.js"></script>
 <script src="../js/generateHoursCalendar.js"></script>
-<script src="../js/addClassrooms.js"></script>
+<script src="../js/generateSpacesFetch.js"></script>
 </body>
 
 </html>

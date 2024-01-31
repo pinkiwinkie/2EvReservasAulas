@@ -1,5 +1,5 @@
-var addSpaceButton = document.getElementById("addSpace");
-var registerSpaceButton = document.getElementById("registerSpaceButton");
+var addSpaceButton = document.getElementById("addClassButton");
+var registerSpaceButton = document.getElementById("generateClassButton");
 
 addSpaceButton.addEventListener("click", function () {
   //div input-group mt,4
