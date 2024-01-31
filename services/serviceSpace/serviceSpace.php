@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($inserted) {
     // Inserción exitosa
     header("HTTP/1.1 200 OK");
-    echo json_encode(['status' => 'insertado', 'message' => 'Inserción exitosa.']);
+    echo json_encode('insertado');
     exit();
   } else {
     // Ya existe o fallo en la inserción
     header("HTTP/1.1 400 Bad Request");
-    echo json_encode(['status' => 'noInsertado', 'message' => 'El espacio ya existe o fallo en la inserción.']);
+    echo json_encode('noInsertado');
     exit();
   }
 }
