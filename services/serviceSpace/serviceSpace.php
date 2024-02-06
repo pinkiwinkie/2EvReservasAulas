@@ -11,20 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $space = new Space($_POST['space_name']);
+  $postData = json_decode(file_get_contents("php://input"), true);
 
-  // Intentar realizar la inserción
-  $inserted = $space->insertSpaces($base->link);
-
-  if ($inserted) {
-    // Inserción exitosa
-    header("HTTP/1.1 200 OK");
-    echo json_encode('insertado');
-    exit();
-  } else {
-    // Ya existe o fallo en la inserción
-    header("HTTP/1.1 400 Bad Request");
-    echo json_encode('noInsertado');
-    exit();
+  foreach ($postData as $item) {
+    $space = new Space($item['space_name']);
+    $space->insertSpaces($base->link);
   }
+
+  echo json_encode('insertado');
+  exit();
 }

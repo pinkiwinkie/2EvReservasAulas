@@ -42,11 +42,10 @@ bGenerateCalendar.addEventListener("click", function () {
 })
 
 function updateHoursDiv(){
-  var horasDiv = document.getElementById("horas");
-  horasDiv.innerHTML = ""; // Limpiar el contenido actual
+  let horasDiv = document.getElementById("horas");
 
   jsonHours.forEach(function (hour, index) {
-    var p = document.createElement("p");
+    let p = document.createElement("p");
     p.textContent = "Hora " + (index + 1) + ": " + hour.start_time + " - " + hour.end_time;
     horasDiv.appendChild(p);
   });

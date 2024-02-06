@@ -85,6 +85,7 @@ include "./include/header.php"
             <div id="addClassButton" class="btn btn-info text-white mt-4">Añadir</div>
             <div id="generateClassButton" class="btn btn-info text-white mt-4">Confirmar las aulas</div>
           </div>
+          <div id="addedClasses"></div>
         </div>
       </div>
     </div>

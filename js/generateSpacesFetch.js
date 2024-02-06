@@ -1,66 +1,45 @@
-var addSpaceButton = document.getElementById("addClassButton");
-var registerSpaceButton = document.getElementById("generateClassButton");
+var bAddSpace = document.getElementById("addClassButton");
+var bConfirmSpace = document.getElementById("generateClassButton");
+var jsonClassroom = [];
 
-addSpaceButton.addEventListener("click", function () {
-  //div input-group mt,4
-  let mainDiv = document.createElement("div");
-  mainDiv.classList.add("input-group", "mt-4");
+bAddSpace.addEventListener("click", function () {
+  let inputClassroom = document.getElementById("classroom");
 
-  //div input-group-text bg-info
-  let iconDiv = document.createElement("div");
-  iconDiv.classList.add("input-group-text", "bg-info");
+  let data = {
+    "space_name": inputClassroom.value,
+  };
 
-  //i
-  let iconI = document.createElement("i");
-  iconI.classList.add("bi", "bi-person-fill", "text-white");
+  jsonClassroom.push(data);
+  inputClassroom.value = "";
 
-  iconDiv.appendChild(iconI);
-  mainDiv.appendChild(iconDiv);
-
-  //input
-  let input = document.createElement("input");
-  input.classList.add("form-control");
-  input.type = "text";
-  input.placeholder = "Tipo de aula y piso";
-  input.name = "nameSpace";
-  input.setAttribute("data-index", Date.now());
-
-  mainDiv.appendChild(input);
-
-  //mainContainer
-
-  let containerInput = document.getElementById("containerInput");
-  containerInput.appendChild(mainDiv);
+  updateClassesDiv()
 });
 
-registerSpaceButton.addEventListener("click", function () {
-  let inputs = document.querySelectorAll("#containerInput input");
-  let data = new FormData();
-  let isEmpty = false;
+bConfirmSpace.addEventListener("click", function () {
+  fetch("http://localhost/2EvReservasAulas/services/serviceSpace/serviceSpace.php", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(jsonClassroom),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data == "insertado") {
+          alert("Aulas registradas correctamente");
+          inputClassroom.value = "";
+        }
+      });
+})
 
-  inputs.forEach(function (input) {
-    let value = input.value;
+function updateClassesDiv() {
+  let classesDiv = document.getElementById("addedClasses");
+  classesDiv.innerHTML = "";
 
-    if (value == "") {
-      isEmpty = true;
-      return;
-    }
-
-    data.append("space_name", value);
+  jsonClassroom.forEach(function (space) {
+    let p = document.createElement("p")
+    p.textContent = "Space name: " + space.space_name;;
+    classesDiv.appendChild(p)
   });
-
-  if (isEmpty) {
-    alert("Inserte valores");
-    return;
-  }
-  fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php",
-  {
-    method: "POST",
-    body: data,
-  }
-  )
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data);
-  });
-});
+}
