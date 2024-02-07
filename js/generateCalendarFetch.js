@@ -32,7 +32,7 @@ function generateWeeklyCalendar(jsonHours) {
   var weeklyCalendarContainer = document.getElementById("weekCalendar");
   weeklyCalendarContainer.innerHTML = "";
   var table = document.createElement("table");
-  table.border = "1";
+  table.HTMLTableElement.border = "1";
 
   var days = ["Horario", " Lunes", " Martes", " Miércoles", " Jueves", " Viernes", " Sábado", " Domingo"]; 
   var headerRow = document.createElement("tr");
@@ -88,7 +88,6 @@ function loadWeekSchedule() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       updateMonth();
       generateWeeklyCalendar(data);
     })

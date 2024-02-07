@@ -1,13 +1,13 @@
-var buttonRegister = document.getElementById('registerButton');
+var buttonRegister = document.getElementById("registerButton");
 var divUsers = document.getElementById("users");
 
 buttonRegister.addEventListener("click", function (e) {
   e.preventDefault();
 
-  let nameInput = document.getElementById('name');
-  let usernameInput = document.getElementById('username');
-  let emailInput = document.getElementById('email');
-  let pwdInput = document.getElementById('pwd');
+  let nameInput = document.getElementById("name");
+  let usernameInput = document.getElementById("username");
+  let emailInput = document.getElementById("email");
+  let pwdInput = document.getElementById("pwd");
 
   let name = nameInput.value;
   let username = usernameInput.value;
@@ -15,22 +15,24 @@ buttonRegister.addEventListener("click", function (e) {
   let pwd = pwdInput.value;
 
   var dates = new FormData();
-  dates.append('names', name);
-  dates.append('username', username);
-  dates.append('email', email);
-  dates.append('pwd', pwd);
-  dates.append('user_type', "noAdmin");
+  dates.append("names", name);
+  dates.append("username", username);
+  dates.append("email", email);
+  dates.append("pwd", pwd);
+  dates.append("user_type", "noAdmin");
 
   if (name === "" || username === "" || email === "" || pwd === "") {
     alert("Introduce valores");
   } else {
-    fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php", {
-      method: "POST",
-      body: dates,
-    })
+    fetch(
+      "http://localhost/2EvReservasAulas/services/serviceUser/userService.php",
+      {
+        method: "POST",
+        body: dates,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data == "noInsertado") {
           alert("El usuario ya existe");
         } else {
@@ -43,14 +45,15 @@ buttonRegister.addEventListener("click", function (e) {
         }
       });
   }
-})
+});
 updateListUsers();
 
 function updateListUsers() {
-  fetch("http://localhost/2EvReservasAulas/services/serviceUser/userService.php")
+  fetch(
+    "http://localhost/2EvReservasAulas/services/serviceUser/userService.php"
+  )
     .then((response) => response.json())
     .then((data) => {
-
       if (data.length > 0) {
         const userListHTML = `
           <table>
@@ -62,8 +65,9 @@ function updateListUsers() {
               </tr>
             </thead>
             <tbody>
-              ${data.map((user) => {
-                return `
+              ${data
+                .map((user) => {
+                  return `
                   <tr>
                     <td>${user.username}</td>
                     <td>${user.names}</td>
@@ -74,7 +78,8 @@ function updateListUsers() {
                     </td>
                   </tr>
                 `;
-              }).join('')}
+                })
+                .join("")}
             </tbody>
           </table>
         `;
@@ -84,19 +89,23 @@ function updateListUsers() {
         divUsers.innerHTML = "<p>No hay usuarios registrados</p>";
       }
     })
-    .catch((error) => console.error("Error al obtener la lista de usuarios:", error));
+    .catch((error) =>
+      console.error("Error al obtener la lista de usuarios:", error)
+    );
 }
 
-function deleteUser(email){
-  alert(email);
+function deleteUser(email) {
   if (confirm("¿Estás seguro de que quieres eliminar este usuario?")) {
-    fetch(`http://localhost/2EvReservasAulas/services/serviceUser/userService.php?email=${email}`, {
-      method: 'DELETE'
-    })
+    fetch(
+      `http://localhost/2EvReservasAulas/services/serviceUser/userService.php?email=${email}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((response) => {
         if (response.ok) {
           alert("Usuario eliminado correctamente");
-          location.reload()
+          location.reload();
         } else {
           alert("Usuario no encontrado o no se pudo eliminar");
         }
