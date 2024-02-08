@@ -3,7 +3,11 @@
   flex-direction: column;
 }
 
-#users{
+#users, #holidaysDiv{
   max-height: 400px;
   overflow-y: auto;
+}
+
+#holidaysDiv{
+  margin-bottom: 10%;
 }

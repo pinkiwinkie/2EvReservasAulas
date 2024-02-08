@@ -1,4 +1,6 @@
 var addHolidayButton = document.getElementById("addHolidayButton");
+var divHolidays = document.getElementById(("holidaysDiv"))
+
 addHolidayButton.addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -30,17 +32,45 @@ addHolidayButton.addEventListener("click", function (e) {
           alert("El festivo ya existe")
         } else {
           alert("Festivo registrado correctamente");
-          name = ""
-          date = ""
+          nameInput.value = "";
+          dateInput.value = "";
+          updateListHolidays()
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-        console.log("Datos de FormData:");
-        for (let pair of dates.entries()) {
-          console.log(pair[0] + ': ' + pair[1]);
-        }
-        alert("Ocurrió un error al procesar la solicitud: " + error.message);
-      });
   }
 })
+updateListHolidays();
+function updateListHolidays() {
+  fetch("http://localhost/2EvReservasAulas/services/serviceHoliday/holidayService.php",
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.length > 0) {
+        const holidaysListHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre festivo</th>
+                <th>Fecha festivo</th
+              </tr>
+            </thead>
+            <tbody>
+              ${data
+            .map((holiday) => {
+              return `
+                  <tr>
+                    <td>${holiday.holiday_name}</td>
+                    <td>${holiday.holiday_date}</td>
+                  </tr>
+                `;
+            })
+            .join("")}
+            </tbody>
+          </table>
+        `;
+        divHolidays.innerHTML = holidaysListHTML;
+      } else {
+        divHolidays.innerHTML = "<p>No hay festivos registrados</p>";
+      }
+    })
+}

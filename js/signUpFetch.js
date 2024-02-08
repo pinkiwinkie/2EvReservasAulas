@@ -59,9 +59,9 @@ function updateListUsers() {
           <table>
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Actions</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>

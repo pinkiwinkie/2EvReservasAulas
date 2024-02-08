@@ -3,6 +3,10 @@ include "./include/header.php"
 ?>
 <!-- CALENDAR -->
 <main>
+  <div>
+    <button class="morningCalendar">Mañana</button>
+    <button class="eveningCalendar">Tarde</button>
+  </div>
   <div class="calendarHeader">
     <div class="btn prev-btn" onclick="loadPreviousWeek()">
       <i class="bi bi-chevron-left"></i>Semana anterior
