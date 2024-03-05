@@ -46,28 +46,55 @@ include "./include/header.php"
     <div class="row mt-4">
       <div class="d-flex justify-content-around container-add-calendar">
         <div class="rounded-5 text-secondary" style="width: 25rem;">
-          <div class="d-flex justify-content-center">
-            <i class="bi bi-calendar-fill" style="font-size: 100px;"></i>
+          <div class="d-flex justify-content-center iconoCalendar">
+            <i class="bi bi-calendar-fill icon" style="font-size: 100px;"></i>
           </div>
-          <div class="text-center fs-3 fw-bold">Añadir calendario</div>
-          <div class="input-group mt-1">
-            <div class="input-group-text bg-info">
-              <i class="bi bi-envelope-fill text-white"></i>
+          <div class="text-center fs-3 fw-bold titleHours">Configuración del horario</div>
+          <form id="horarioForm">
+            <div class="input-group mt-1">
+              <div class="input-group-text bg-info">
+                <i class="bi bi-clock-fill text-white"></i>
+              </div>
+              <span class="input-group-text">Hora de inicio</span>
+              <input id="horaInicio" class="form-control" type="time" placeholder="Hora de inicio" required>
             </div>
-            <input id="startTime" class="form-control" type="time" placeholder="Hora de inicio (hh:mm)">
-          </div>
-          <div class="input-group mt-1">
-            <div class="input-group-text bg-info">
-              <i class="bi bi-envelope-fill text-white"></i>
+            <div class="input-group mt-1">
+              <div class="input-group-text bg-info">
+                <i class="bi bi-clock-fill text-white"></i>
+              </div>
+              <span class="input-group-text">Hora de fin</span>
+              <input id="horaFin" class="form-control" type="time" placeholder="Hora de fin" required>
             </div>
-            <input id="endTime" class="form-control" type="time" placeholder="Hora de fin (hh:mm)">
-          </div>
-          <div class="buttons d-flex justify-content-between">
-            <div id="addCalendarButton" class="btn btn-info text-white mt-4">Añadir</div>
-            <div id="generateCalendarButton" class="btn btn-info text-white mt-4">Confirmar las horas</div>
-          </div>
-          <div id="horas" class="mb-4">
-
+            <div class="input-group mt-1">
+              <div class="input-group-text bg-info">
+                <i class="bi bi-clock-fill text-white"></i>
+              </div>
+              <input id="duracionClase" class="form-control" type="number" min="1" placeholder="Duración de cada clase (minutos)" required>
+            </div>
+            <div class="input-group mt-1">
+              <div class="input-group-text bg-info">
+                <i class="bi bi-clock-fill text-white"></i>
+              </div>
+              <input id="cantidadPatios" class="form-control" type="number" min="1" placeholder="Cantidad de patios" required>
+            </div>
+            <div class="buttons d-flex justify-content-between mt-4">
+              <button type="submit" class="btn btn-info text-white">Confirmar</button>
+            </div>
+          </form>
+        </div>
+        <div id="nuevoFormulario" style="display: none;">
+          <div class="d-flex justify-content-around container-add-calendar">
+            <div class="rounded-5 text-secondary" style="width: 25rem;">
+              <div class="d-flex justify-content-center">
+                <i class="bi bi-calendar-fill" style="font-size: 100px;"></i>
+              </div>
+              <div class="text-center fs-3 fw-bold">Configuración de patios</div>
+              <form id="patiosForm">
+                <div class="buttons d-flex justify-content-between mt-4">
+                  <button type="submit" id="submitPatiosButton" class="btn btn-info text-white">Confirmar</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <div class="rounded-5 text-secondary" style="width: 25rem;">
