@@ -7,12 +7,11 @@ function formatDate(date) {
 
 function generateWeeklyCalendar(jsonHours, holidays, days, bookings) {
   var weeklyCalendarContainer = document.getElementById("weekCalendar");
-  weeklyCalendarContainer.innerHTML = ""; // Limpiar el contenedor antes de agregar el nuevo contenido
+  weeklyCalendarContainer.innerHTML = ""; 
 
   var table = document.createElement("table");
   table.border = "1";
 
-  // Crear la fila de la cabecera con los números de los días y los nombres de los días de la semana
   var headerRow = document.createElement("tr");
   for (var i = 0; i < days.length; i++) {
     var th = document.createElement("th");
@@ -21,12 +20,12 @@ function generateWeeklyCalendar(jsonHours, holidays, days, bookings) {
   }
   table.appendChild(headerRow);
 
-  // Resto del código para generar el calendario...
-  var currentDate = new Date(); // Obtener la fecha actual
-  var currentDayOfMonth = currentDate.getDate(); // Día del mes actual
-  var dayOfWeek = currentDate.getDay(); // Día de la semana actual
-  var startingDate = new Date(currentDate); // Fecha de inicio para la tabla
-  startingDate.setDate(currentDayOfMonth - dayOfWeek); // Ajustar para comenzar desde el lunes
+  
+  var currentDate = new Date(); 
+  var currentDayOfMonth = currentDate.getDate(); 
+  var dayOfWeek = currentDate.getDay(); 
+  var startingDate = new Date(currentDate); 
+  startingDate.setDate(currentDayOfMonth - dayOfWeek);
 
   for (var i = 0; i < jsonHours.length; i++) {
     var tr = document.createElement("tr");
@@ -36,8 +35,8 @@ function generateWeeklyCalendar(jsonHours, holidays, days, bookings) {
     for (var j = 0; j < 7; j++) {
       var td = document.createElement("td");
       if (j !== 0) {
-        var currentDay = new Date(startingDate); // Copia de la fecha de inicio
-        currentDay.setDate(startingDate.getDate() + j); // Ajustar para obtener el día correcto de la semana
+        var currentDay = new Date(startingDate); 
+        currentDay.setDate(startingDate.getDate() + j); 
         var formattedDate = formatDate(currentDay);
         var reservationsForDay = bookings.filter(reservation => {
           var reservationStart = new Date(reservation.start_date);
@@ -50,12 +49,11 @@ function generateWeeklyCalendar(jsonHours, holidays, days, bookings) {
           var startHour = parseInt(jsonHours[i].start_time.split(":")[0]);
           var endHour = parseInt(jsonHours[i].end_time.split(":")[0]);
       
-          // Verificar si el día actual está dentro del rango de la reserva
           if (currentDay >= reservationStart && currentDay <= reservationEnd) {
               if (reservationStart.getHours() <= endHour && reservationEnd.getHours() >= startHour) {
                   var reservationCell = document.createElement("div");
                   reservationCell.textContent = reservation.email;
-                  reservationCell.style.backgroundColor = "lightblue"; // Cambiar el color de fondo de la celda
+                  reservationCell.style.backgroundColor = "lightblue"; 
                   td.appendChild(reservationCell);
               }
           }
@@ -126,7 +124,6 @@ function loadNextWeek() {
 
 var currentDate = new Date();
 
-// Lógica para cargar la semana anterior y la próxima semana
 document.querySelector('.prev-btn').addEventListener("click", loadPreviousWeek);
 document.querySelector('.next-btn').addEventListener("click", loadNextWeek);
 
