@@ -1,79 +1,107 @@
+const patioCount = parseInt(document.getElementById("patioCount").value);
+const newForm = document.getElementById("newForm");
+const patiosForm = document.getElementById("patiosForm");
+const horarioForm = document.getElementById("horarioForm");
+
+const titleHours = document.querySelector(".titleHours")
+const iconoCalendar = document.querySelector(".iconoCalendar")
+const icon = document.querySelector(".icon");
+
+const courseStartDate = document.getElementById("courseStartDate")
+const courseEndDate = document.getElementById("courseEndDate")
+const submitPatiosButton = document.getElementById("submitPatiosButton")
+
 document.addEventListener("DOMContentLoaded", function () {
-  document
-    .getElementById("horarioForm")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      const cantidadPatios = parseInt(
-        document.getElementById("cantidadPatios").value
+  horarioForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    patiosForm.innerHTML = "";
+
+    for (let i = 0; i < patioCount; i++) {
+      let patioDiv = document.createElement("div");
+      patioDiv.classList.add("input-group", "mt-1");
+
+      let startTimeLabel = document.createElement("span");
+      startTimeLabel.classList.add("input-group-text");
+      startTimeLabel.textContent = `Inicio del patio ${i + 1}`;
+
+      let startTimeInput = document.createElement("input");
+      startTimeInput.id = `startTimePatio${i}`;
+      startTimeInput.classList.add("form-control");
+      startTimeInput.type = "time";
+      startTimeInput.required = true;
+
+      let durationLabel = document.createElement("span");
+      durationLabel.classList.add("input-group-text");
+      durationLabel.textContent = `Duración del patio ${i + 1} (minutes)`;
+
+      let durationInput = document.createElement("input");
+      durationInput.id = `durationPatio${i}`;
+      durationInput.classList.add("form-control");
+      durationInput.type = "number";
+      durationInput.min = "1";
+      durationInput.required = true;
+
+      patioDiv.appendChild(startTimeLabel);
+      patioDiv.appendChild(startTimeInput);
+      patioDiv.appendChild(durationLabel);
+      patioDiv.appendChild(durationInput);
+
+      patiosForm.appendChild(patioDiv);
+    }
+
+    newForm.style.display = "block";
+    horarioForm.style.display = "none";
+    titleHours.style.display = "none";
+    iconoCalendar.style.display = "none";
+    icon.style.display = "none";
+
+    let courseStartDateValue = courseStartDate.value.trim();
+    let courseEndDateValue = courseEndDate.value.trim();
+
+    fetch("http://localhost/2EvReservasAulas/services/serviceCourse/courseService.php", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fechaInicio: courseStartDateValue,
+        fechaFin: courseEndDateValue
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Curso añadido:', data);
+        alert("Curso añadido");
+      })
+      .catch(error => {
+        console.error('Error al agregar el curso:', error);
+        // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
+      });
+
+    let submitPatiosButton = document.createElement("button");
+    submitPatiosButton.setAttribute("type", "submit");
+    submitPatiosButton.setAttribute("id", "submitPatiosButton");
+    submitPatiosButton.classList.add("btn", "btn-info", "text-white");
+    submitPatiosButton.textContent = "Confirmar";
+
+    let buttonsContainer = document.createElement("div");
+    buttonsContainer.classList.add("buttons", "d-flex", "justify-content-between", "mt-4");
+    buttonsContainer.appendChild(submitPatiosButton);
+
+    patiosForm.appendChild(buttonsContainer);
+  });
+
+  submitPatiosButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    for (let i = 0; i < patioCount; i++) {
+      const startTimePatio = document.getElementById(
+        `startTimePatio${i}`
+      ).value;
+      const durationPatio = parseInt(
+        document.getElementById(`durationPatio${i}`).value
       );
-      const nuevoFormulario = document.getElementById("nuevoFormulario");
-      const patiosForm = document.getElementById("patiosForm");
-
-      // Limpiamos el formulario de patios antes de agregar campos nuevos
-      patiosForm.innerHTML = "";
-
-      // Creamos los campos para cada patio
-      for (let i = 0; i < cantidadPatios; i++) {
-        const patioDiv = document.createElement("div");
-        patioDiv.classList.add("input-group", "mt-1");
-
-        const horaInicioPatioLabel = document.createElement("span");
-        horaInicioPatioLabel.classList.add("input-group-text");
-        horaInicioPatioLabel.textContent = `Hora de inicio del patio ${i + 1}`;
-
-        const horaInicioPatioInput = document.createElement("input");
-        horaInicioPatioInput.id = `horaInicioPatio${i}`;
-        horaInicioPatioInput.classList.add("form-control");
-        horaInicioPatioInput.type = "time";
-        horaInicioPatioInput.required = true;
-
-        const duracionPatioLabel = document.createElement("span");
-        duracionPatioLabel.classList.add("input-group-text");
-        duracionPatioLabel.textContent = `Duración del patio ${i + 1
-          } (minutos)`;
-
-        const duracionPatioInput = document.createElement("input");
-        duracionPatioInput.id = `duracionPatio${i}`;
-        duracionPatioInput.classList.add("form-control");
-        duracionPatioInput.type = "number";
-        duracionPatioInput.min = "1";
-        duracionPatioInput.placeholder = "Duración del patio";
-        duracionPatioInput.required = true;
-
-        patioDiv.appendChild(horaInicioPatioLabel);
-        patioDiv.appendChild(horaInicioPatioInput);
-        patioDiv.appendChild(duracionPatioLabel);
-        patioDiv.appendChild(duracionPatioInput);
-
-        patiosForm.appendChild(patioDiv);
-      }
-
-      nuevoFormulario.style.display = "block";
-      document.getElementById("horarioForm").style.display = "none";
-      document.querySelector(".titleHours").style.display = "none";
-      document.querySelector(".iconoCalendar").style.display = "none";
-      document.querySelector(".icon").style.display = "none";
-    });
-
-  document
-    .getElementById("submitPatiosButton")
-    .addEventListener("click", function (event) {
-      event.preventDefault();
-      const cantidadPatios = parseInt(
-        document.getElementById("cantidadPatios").value
-      );
-
-      for (let i = 0; i < cantidadPatios; i++) {
-        const horaInicioPatio = document.getElementById(
-          `horaInicioPatio${i}`
-        ).value;
-        const duracionPatio = parseInt(
-          document.getElementById(`duracionPatio${i}`).value
-        );
-        console.log(
-          `Patio ${i + 1
-          }: Hora de inicio - ${horaInicioPatio}, Duración - ${duracionPatio} minutos`
-        );
-      }
-    });
+    }
+  });
 });

@@ -53,6 +53,20 @@ include "./include/header.php"
           <form id="horarioForm">
             <div class="input-group mt-1">
               <div class="input-group-text bg-info">
+                <i class="bi bi-calendar-fill text-white"></i>
+              </div>
+              <span class="input-group-text">Fecha de inicio del curso</span>
+              <input id="courseStartDate" class="form-control" type="date" required>
+            </div>
+            <div class="input-group mt-1">
+              <div class="input-group-text bg-info">
+                <i class="bi bi-calendar-fill text-white"></i>
+              </div>
+              <span class="input-group-text">Fecha de fin del curso</span>
+              <input id="courseEndDate" class="form-control" type="date" required>
+            </div>
+            <div class="input-group mt-1">
+              <div class="input-group-text bg-info">
                 <i class="bi bi-clock-fill text-white"></i>
               </div>
               <span class="input-group-text">Hora de inicio</span>
@@ -75,14 +89,14 @@ include "./include/header.php"
               <div class="input-group-text bg-info">
                 <i class="bi bi-clock-fill text-white"></i>
               </div>
-              <input id="cantidadPatios" class="form-control" type="number" min="1" placeholder="Cantidad de patios" required>
+              <input id="patioCount" class="form-control" type="number" min="1" placeholder="Cantidad de patios" required>
             </div>
             <div class="buttons d-flex justify-content-between mt-4">
               <button type="submit" class="btn btn-info text-white">Confirmar</button>
             </div>
           </form>
         </div>
-        <div id="nuevoFormulario" style="display: none;">
+        <div id="newForm" style="display: none;">
           <div class="d-flex justify-content-around container-add-calendar">
             <div class="rounded-5 text-secondary" style="width: 25rem;">
               <div class="d-flex justify-content-center">
@@ -90,9 +104,6 @@ include "./include/header.php"
               </div>
               <div class="text-center fs-3 fw-bold">Configuración de patios</div>
               <form id="patiosForm">
-                <div class="buttons d-flex justify-content-between mt-4">
-                  <button type="submit" id="submitPatiosButton" class="btn btn-info text-white">Confirmar</button>
-                </div>
               </form>
             </div>
           </div>

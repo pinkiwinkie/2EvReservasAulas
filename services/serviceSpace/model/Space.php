@@ -25,9 +25,8 @@ class Space
   function insertSpaces($link)
   {
     try {
-      // Verificar si ya existe un espacio con el mismo nombre
       if ($this->spaceExists($link)) {
-        return false; // Ya existe, no se realiza la inserción
+        return false;
       }
 
       $query = "INSERT INTO spaces(space_name) VALUES(:space_name)";
@@ -39,7 +38,7 @@ class Space
 
       $result->execute();
       
-      return $result->rowCount() > 0; // Retorna true si se realizó la inserción, false si no
+      return $result->rowCount() > 0; 
     } catch (PDOException $e) {
       echo "¡Error!: " . $e->getMessage() . "<br/>";
       die();
