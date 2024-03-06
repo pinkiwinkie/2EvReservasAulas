@@ -8,7 +8,7 @@ class Booking
   private $end_date;
   private $is_pattern;
 
-  public function __construct($email, $space_id, $start_date, $end_date, $is_pattern)
+  public function __construct($email="", $space_id="", $start_date="", $end_date="", $is_pattern="")
   {
     $this->email = $email;
     $this->space_id = $space_id;
@@ -16,7 +16,6 @@ class Booking
     $this->end_date = $end_date;
     $this->is_pattern = $is_pattern;
   }
-
   public static function getAll($link)
   {
     try {
@@ -25,7 +24,7 @@ class Booking
       $result->execute();
       return $result->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-      // Manejo de errores en caso de fallo en la consulta
+      
       echo "Error al obtener todas las reservas: " . $e->getMessage();
       return false;
     }
@@ -45,11 +44,26 @@ class Booking
       $result->bindParam(':is_pattern', $this->is_pattern);
 
       $result->execute();
-      return true; // Retorna true si la inserción fue exitosa
+      return true; 
+    } catch (PDOException $e) {
+      echo "¡Error al insertar reserva!: " . $e->getMessage();
+      return false; 
+    }
+  }
+
+  public static function deleteReserva($link, $booking_id){
+    try {
+      $query = "DELETE FROM bookings where booking_id = :booking_id";
+      $result = $link->prepare($query);
+
+      $result->bindParam(':booking_id', $booking_id);
+
+      $result->execute();
+      return true; 
     } catch (PDOException $e) {
       // Manejo de errores en caso de fallo en la inserción
       echo "¡Error al insertar reserva!: " . $e->getMessage();
-      return false; // Retorna false si hay un error en la inserción
+      return false; 
     }
   }
 }

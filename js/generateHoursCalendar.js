@@ -126,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let isPatio = false;
         let patioDuration = 0;
 
-        // Comprobamos si la hora actual es un patio
         for (let i = 0; i < patios.length; i++) {
           let patioStartParts = patios[i].startTime.split(":");
           let patioStartMinutes = parseInt(patioStartParts[0]) * 60 + parseInt(patioStartParts[1]);
@@ -138,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        // Si es un patio, usamos la duración del patio
         if (isPatio) {
           endMinutes = startMinutes + patioDuration;
         } else {
@@ -157,13 +155,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     console.log(classes);
 
-    // Insertar la información de las clases en la tabla `calendario` de la base de datos
     let classesJSON = JSON.stringify(classes);
     console.log(classesJSON);
     insertClassesToDatabase(classesJSON);
   });
-
-  // Función para insertar las clases en la base de datos
   function insertClassesToDatabase(classes) {
     fetch(
       "http://localhost/2EvReservasAulas/services/serviceCalendar/calendarService.php",
@@ -178,11 +173,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((data) => {
         console.log("Clases añadidas:", data);
-        // Aquí puedes mostrar un mensaje de éxito al usuario si lo deseas
       })
       .catch((error) => {
         console.error("Error al agregar las clases:", error);
-        // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
       });
   }
 });

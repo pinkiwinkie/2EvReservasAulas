@@ -40,9 +40,6 @@
             <li class="nav-item mx-2 only-admin">
               <a class="nav-link" href="./dashboardAdmin.php">Dashboard</a>
             </li>
-            <li class="nav-item mx-2 only-admin">
-              <a class="nav-link" href="./viewBookings.php">Gestionar reservas</a>
-            </li>
             <li class="nav-item mx-2">
               <a class="nav-link" id="buttonLogOut" href="#">Cerrar sesión</a>
             </li>

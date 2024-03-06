@@ -1,5 +1,5 @@
 <?php
-const BASE='reservaAulas';
+const BASE='reservaaulas';
 const HOST='localhost';
 const USER ='root';
 const PASS='';
