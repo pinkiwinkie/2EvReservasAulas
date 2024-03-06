@@ -3,13 +3,12 @@ const newForm = document.getElementById("newForm");
 const patiosForm = document.getElementById("patiosForm");
 const horarioForm = document.getElementById("horarioForm");
 
-const titleHours = document.querySelector(".titleHours")
-const iconoCalendar = document.querySelector(".iconoCalendar")
+const titleHours = document.querySelector(".titleHours");
+const iconoCalendar = document.querySelector(".iconoCalendar");
 const icon = document.querySelector(".icon");
 
-const courseStartDate = document.getElementById("courseStartDate")
-const courseEndDate = document.getElementById("courseEndDate")
-const submitPatiosButton = document.getElementById("submitPatiosButton")
+const courseStartDate = document.getElementById("courseStartDate");
+const courseEndDate = document.getElementById("courseEndDate");
 
 document.addEventListener("DOMContentLoaded", function () {
   horarioForm.addEventListener("submit", function (event) {
@@ -59,23 +58,26 @@ document.addEventListener("DOMContentLoaded", function () {
     let courseStartDateValue = courseStartDate.value.trim();
     let courseEndDateValue = courseEndDate.value.trim();
 
-    fetch("http://localhost/2EvReservasAulas/services/serviceCourse/courseService.php", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fechaInicio: courseStartDateValue,
-        fechaFin: courseEndDateValue
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Curso añadido:', data);
+    fetch(
+      "http://localhost/2EvReservasAulas/services/serviceCourse/courseService.php",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fechaInicio: courseStartDateValue,
+          fechaFin: courseEndDateValue,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Curso añadido:", data);
         alert("Curso añadido");
       })
-      .catch(error => {
-        console.error('Error al agregar el curso:', error);
+      .catch((error) => {
+        console.error("Error al agregar el curso:", error);
         // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
       });
 
@@ -86,22 +88,102 @@ document.addEventListener("DOMContentLoaded", function () {
     submitPatiosButton.textContent = "Confirmar";
 
     let buttonsContainer = document.createElement("div");
-    buttonsContainer.classList.add("buttons", "d-flex", "justify-content-between", "mt-4");
+    buttonsContainer.classList.add(
+      "buttons",
+      "d-flex",
+      "justify-content-between",
+      "mt-4"
+    );
     buttonsContainer.appendChild(submitPatiosButton);
 
     patiosForm.appendChild(buttonsContainer);
-  });
 
-  submitPatiosButton.addEventListener("click", function (event) {
-    event.preventDefault();
+    submitPatiosButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      alert("hola");
 
-    for (let i = 0; i < patioCount; i++) {
-      const startTimePatio = document.getElementById(
-        `startTimePatio${i}`
-      ).value;
-      const durationPatio = parseInt(
-        document.getElementById(`durationPatio${i}`).value
-      );
+      let classStartTime = document.getElementById("horaInicio").value;
+      let classEndTime = document.getElementById("horaFin").value;
+      let classDuration = document.getElementById("duracionClase").value;
+
+      let classes = [];
+      let patios = [];
+
+      for (let i = 0; i < patioCount; i++) {
+        let startTime = document.getElementById(`startTimePatio${i}`).value;
+        let duration = parseInt(document.getElementById(`durationPatio${i}`).value);
+        patios.push({ startTime, duration });
+      }
+      //console.log(patios);
+
+      let currentTime = classStartTime;
+
+      while (currentTime < classEndTime) {
+        let startParts = currentTime.split(":");
+        let startMinutes = parseInt(startParts[0]) * 60 + parseInt(startParts[1]);
+        let endMinutes;
+
+        let isPatio = false;
+        let patioDuration = 0;
+
+        // Comprobamos si la hora actual es un patio
+        for (let i = 0; i < patios.length; i++) {
+          let patioStartParts = patios[i].startTime.split(":");
+          let patioStartMinutes = parseInt(patioStartParts[0]) * 60 + parseInt(patioStartParts[1]);
+
+          if (patioStartMinutes === startMinutes) {
+            isPatio = true;
+            patioDuration = patios[i].duration;
+            break;
+          }
+        }
+
+        // Si es un patio, usamos la duración del patio
+        if (isPatio) {
+          endMinutes = startMinutes + patioDuration;
+        } else {
+          endMinutes = startMinutes + parseInt(classDuration);
+        }
+
+        let hours = Math.floor(endMinutes / 60);
+        let minutes = endMinutes % 60;
+        let nextTime = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+        classes.push({
+          "start_time": currentTime,
+          "end_time": nextTime
+        });
+        currentTime = nextTime;
+
     }
+    console.log(classes);
+
+    // Insertar la información de las clases en la tabla `calendario` de la base de datos
+    let classesJSON = JSON.stringify(classes);
+    console.log(classesJSON);
+    insertClassesToDatabase(classesJSON);
   });
+
+  // Función para insertar las clases en la base de datos
+  function insertClassesToDatabase(classes) {
+    fetch(
+      "http://localhost/2EvReservasAulas/services/serviceCalendar/calendarService.php",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: classes,
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Clases añadidas:", data);
+        // Aquí puedes mostrar un mensaje de éxito al usuario si lo deseas
+      })
+      .catch((error) => {
+        console.error("Error al agregar las clases:", error);
+        // Aquí puedes mostrar un mensaje de error al usuario si lo deseas
+      });
+  }
+});
 });
