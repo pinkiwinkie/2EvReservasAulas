@@ -4,6 +4,25 @@
   box-sizing: border-box;
 }
 
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%; /* Ajusta el ancho del contenedor según sea necesario */
+}
+
+.reservationForm {
+  flex: 1;
+  margin-right: 20px; /* Espacio entre el formulario y el calendario */
+  max-width: 50%; /* Limita el ancho del formulario al 50% del contenedor */
+}
+
+.calendarContainer {
+  flex: 1;
+  max-width: 50%; /* Limita el ancho del calendario al 50% del contenedor */
+}
+
+
+
 body{
   height: 100vh;
   scroll-behavior: auto;
